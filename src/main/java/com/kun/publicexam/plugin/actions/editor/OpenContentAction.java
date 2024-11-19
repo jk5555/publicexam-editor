@@ -1,0 +1,24 @@
+package com.kun.publicexam.plugin.actions.editor;
+
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.project.Project;
+import com.kun.publicexam.plugin.editor.ConvergePreview;
+import com.kun.publicexam.plugin.manager.CodeManager;
+import com.kun.publicexam.plugin.model.Config;
+import com.kun.publicexam.plugin.model.Question;
+
+/**
+ * @author shuzijun
+ */
+public class OpenContentAction extends AbstractEditAction {
+
+    @Override
+    public void actionPerformed(AnActionEvent anActionEvent, Config config, Question question) {
+        if (config.getConvergeEditor() && openConvergeEditor(anActionEvent, new ConvergePreview.TabSelectFileEditorState("Content"))) {
+            return;
+        }
+        Project project = anActionEvent.getProject();
+        CodeManager.openContent(question.getTitleSlug(), project, true);
+
+    }
+}
